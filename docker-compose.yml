@@ -1,0 +1,63 @@
+version: '3'
+services:
+  api:
+    build:
+      dockerfile: api.dockerfile
+      context: .
+    container_name: api-sensor
+    restart: always
+    command: python main.py
+    environment:
+      - PORT=5000
+    volumes:
+      #- ./api-sensor:/var/lib/api/python/
+      #- ./files:/var/lib/api/files/
+      - .:/api-sensor  
+      - ./files:/files
+    ports:
+      - 5000:5000
+    networks:
+      - app-sensors
+
+  generator:
+    build:
+      dockerfile: generator.dockerfile
+      context: .
+    container_name: api-generator
+    restart: always
+    command: python main.py
+    environment:
+      - PORT=3000
+    volumes:
+      - ./api-generator:/var/lib/api/python/
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+    networks:
+      - app-sensors
+    
+  db:
+    image: mysql:5.7
+    container_name: sensor-mysql
+    ports: 
+      - "3306:3306"
+    expose:
+      - '3306'
+    restart: always
+    environment:
+      - TZ=America/Sao_Paulo
+      - MYSQL_DATABASE=sensor
+      - MYSQL_USER=sensor_user
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=app-sensors
+    volumes:
+      - ./mysql/db:/var/lib/mysql
+      - ./mysql/log:/var/log/mysql
+      - ./mysql/conf.d:/etc/mysql/conf.d
+    networks: 
+      - app-sensors
+      
+networks:
+  app-sensors:
+    driver: bridge
