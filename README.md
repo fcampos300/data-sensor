@@ -1,21 +1,3 @@
-# Desafio para vaga de analista pleno/sênior
-
-## Considerações Gerais
-
-* Sua solução deverá ser desenvolvida em dotnet core 2.1+.
-
-* Devemos ser capazes de executar sua solução em uma VM limpa, com scripts de automatização de tarefas como Make, Shell Script ou similares. Esses scripts devem ser suficientes para rodarmos sua solução.
-
-* Considere que já temos o seguinte ambiente:
-    * Windows 10 Professional
-    * Ubuntu 18.0.4
-    * .NET Core 2.2
-
-* No seu README, você deverá fazer uma explicação sobre a solução encontrada, tecnologias envolvidas e instrução de uso da solução. 
-
-* É interessante que você também registre ideias que gostaria de implementar caso tivesse mais tempo.
-
-
 ## Problema
 
 Imagine que você ficou responsável por construir um sistema que seja capaz de receber milhares de eventos por segundo de sensores espalhados pelo Brasil, nas regiões norte, nordeste, sudeste e sul. Seu cliente também deseja que na solução ele possa visualizar esses eventos de forma clara.
